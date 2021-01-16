@@ -10,8 +10,6 @@ from keras.preprocessing.image import ImageDataGenerator
 from keras.models import Sequential
 from keras.layers import Conv2D, MaxPooling2D
 from keras.layers import Activation, Dropout, Flatten, Dense
-#from keras import backend as K
-#from keras.models import model_from_json
 from livelossplot import PlotLossesKeras
 import os
 import matplotlib.pyplot as plt
@@ -34,7 +32,6 @@ if gpus:
 IMG_SIZE = (96, 96)
 
 train_data_dir = 'custom\\AWE\\train'
-#validation_data_dir = 'C:\\Users\\anany\\OneDrive\\Desktop\\an_python\\Data Set\\Test'
 epochs = 10
 batch_size = 8
 num_classes = 100
@@ -45,13 +42,7 @@ else:
     input_shape = (img_width, img_height, 3)'''
 
 
-# train_datagen = ImageDataGenerator(
-#     rescale=1. / 255,
-#     shear_range=0.2,
-#     zoom_range=0.2,
-#     horizontal_flip=False)
 
-# this is the augmentation configuration we will use for testing
 train_ds = tf.keras.preprocessing.image_dataset_from_directory(
   train_data_dir,
   validation_split=0.2,
@@ -71,13 +62,8 @@ class_names = train_ds.class_names
 print(class_names)
 from tensorflow.keras import layers
 
-# normalization_layer = tf.keras.layers.experimental.preprocessing.Rescaling(1./255)
-# normalized_ds = train_ds.map(lambda x, y: (normalization_layer(x), y))
+
 image_batch, labels_batch = next(iter(train_ds))
-# print(len(image_batch))
-# first_image = image_batch[0]
-# # Notice the pixels values are now in `[0,1]`.
-# print(np.min(first_image), np.max(first_image))
 
 
 IMG_SHAPE = IMG_SIZE + (3,)
@@ -132,9 +118,6 @@ history = model.fit(train_ds,
                     validation_data=val_ds,
                     callbacks=checkpoint)
 
-# loss, accuracy = model.evaluate(val_ds)
-# print("final loss: {:.2f}".format(loss))
-# print("final accuracy: {:.2f}".format(accuracy))
 
 acc = history.history['accuracy']
 val_acc = history.history['val_accuracy']
@@ -182,7 +165,6 @@ plt.title('Training and Validation Loss')
 plt.xlabel('epoch')
 
 
-# serialize weights to HDF5
 model.save("inceptionresnet22")
 plt.savefig(log_dir)
 print("Saved model to disk")
