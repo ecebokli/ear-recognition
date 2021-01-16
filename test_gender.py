@@ -46,9 +46,7 @@ for i in range(0,len(class_names)):
     for f in files:
         gt.append(class_names[i])
         img = image.load_img(test_data_dir + '\\' + class_names[i] + '\\' + f, target_size=(96, 96))
-        #img_array = image.img_to_array(img)
         img_batch = np.expand_dims(img, axis=0)
-        #img_preprocessed = tf.keras.applications.resnet_v2.preprocess_input(img_batch)
         prediction = model.predict(img_batch)
         prediction = tf.nn.sigmoid(prediction)
         prediction = np.array(prediction)
@@ -74,27 +72,3 @@ print("spec: ", TN/(TN + FP))
 results = model.evaluate(test_ds)
 print(results)
 
-# for i in range(0,100):        
-#     for j in range(1,11):
-#         number = i*10+j
-#         j = "{0:0=2d}".format(j)
-        
-#         if str(number) in train:
-#             if gender == 'm':
-#                 shutil.copy2('awecrop/'+class_names[i]+'/'+j+'.png', 'custom/AWEgender/train/m/'+str(file_count)+'.png')
-#             else:
-#                 shutil.copy2('awecrop/'+class_names[i]+'/'+j+'.png', 'custom/AWEgender/train/f/'+str(file_count)+'.png')
-#         else:
-#             if gender == 'm':
-#                 shutil.copy2('awecrop/'+class_names[i]+'/'+j+'.png', 'custom/AWEgender/test/m/'+str(file_count)+'.png')
-#             else:
-#                 shutil.copy2('awecrop/'+class_names[i]+'/'+j+'.png', 'custom/AWEgender/test/f/'+str(file_count)+'.png')
-
-#         file_count += 1
-
-
-
-# # predictions = model.predict(img_array)
-# # score = tf.nn.softmax(predictions[0])
-
-# print(results)

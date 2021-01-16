@@ -18,6 +18,7 @@ if gpus:
     except RuntimeError as e:
         # Memory growth must be set before GPUs have been initialized
         print(e)
+
 test_data_dir = 'custom\\AWEeth\\test'
 img_width, img_height = 96, 96
 class_names = ['1','2','3','4','5','6','99']
@@ -31,17 +32,15 @@ def evaluate(model):
 
     for i in range(0,len(class_names)):
         files = os.listdir(test_data_dir + '\\' + class_names[i])
-        #print(files)
+        
         for f in files:
             gt.append(class_names[i])
             img = image.load_img(test_data_dir + '\\' + class_names[i] + '\\' + f, target_size=(96, 96))
 
-            #img_array = image.img_to_array(img)
+            
             img_batch = np.expand_dims(img, axis=0)
-            #img_preprocessed = tf.keras.applications.resnet_v2.preprocess_input(img_batch)
             prediction = model.predict(img_batch, batch_size=1)
 
-            # Apply a sigmoid since our model returns logits
             prediction = tf.nn.sigmoid(prediction)
             prediction = np.array(prediction)
             indices = (-prediction).argsort()[0]
@@ -54,17 +53,12 @@ def evaluate(model):
                 else:
                     
                     ranks[j-1].append(class_names[idx])
-            #print(prediction)
-            #idx = np.argmax(prediction)
             prediction = class_names[idx]
             predictions.append(prediction)
     predictions = np.array(predictions)
     gt = np.array(gt)
-    #print(predictions)  
-    #print(gt)
     ranks_acc = np.zeros((1,7))[0]
     for i in range(0,7):
-        #print(ranks[i])
         ranks_acc[i] = (np.sum(ranks[i]==gt)/len(predictions))
 
     return ranks_acc
@@ -94,20 +88,3 @@ plt.ylim([0.0, 1])
 plt.legend(handles=[plot1])
 plt.savefig("CMC-ethnicity")
 plt.show()
-
-
-# image_batch, label_batch = test_ds.as_numpy_iterator().next()
-# predictions = model.predict_on_batch(image_batch).flatten()
-
-# # Apply a sigmoid since our model returns logits
-# predictions = tf.nn.sigmoid(predictions)
-# print(predictions)
-
-
-# print(np.sum(predictions==gt)/len(predictions))
-
-
-
-
-# results = model.evaluate(test_ds)
-# print(results)
