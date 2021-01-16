@@ -6,9 +6,9 @@ Code tested on Windows 10, Python version 3.7.7.
 
 Dataset used: AWE (cropped)
 
-Dataset folder should be located in the main folder. The prepared dataset is available here: 
+Dataset folder should be located in the main folder. The prepared dataset is available here (~89 MB): https://drive.google.com/file/d/14R8W8au6JCGlxAzL4nYbj6jGreMo3aw5/view?usp=sharing
 
-Every model used is available here: https://drive.google.com/file/d/1ISe2gP4hj3vBxDHm4fiqZculz3wWu8ZQ/view?usp=sharing
+Every model used is available here (~2 GB): https://drive.google.com/file/d/15PsfJl_psm0kKep3q1ukF2a2OzTCITNk/view?usp=sharing
 
 Models should be placed in the main folder
 
