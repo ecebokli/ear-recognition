@@ -1,0 +1,10 @@
+tensorflow-gpu==2.4
+CUDA==11.0
+cuDNN==8.0.3.33
+keras==2.1.5
+
+numpy
+matplotlib
+opencv-python
+pillow
+timeit
